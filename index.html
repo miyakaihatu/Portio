@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ポルチオ反応タイプチェック</title>
+  <title>わたしのカラダ感覚チェック（ポルチオ反応タイプ）</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <!-- フォントを丸みがあり親しみやすい Zen Maru Gothic に変更 -->
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #f8f4f2;
       --bg-soft: #fcfaf8;
       --card: rgba(255, 255, 255, 0.88);
-      --text: #3b3332;
-      --muted: #7d6f6c;
+      --text: #4a403f; /* 少しだけブラウン寄りにし柔らかく */
+      --muted: #8b7d7b;
       --line: #eadfdc;
       --accent: #c98f9f;
       --accent-dark: #a56d7c;
@@ -33,14 +34,15 @@
 
     body {
       margin: 0;
-      font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+      /* フォントファミリーを適用 */
+      font-family: "Zen Maru Gothic", -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
       color: var(--text);
       background:
         radial-gradient(circle at top left, #fff6f7 0%, transparent 30%),
         radial-gradient(circle at top right, #f7f3ee 0%, transparent 28%),
         linear-gradient(180deg, #fbf7f5 0%, #f6f0ed 100%);
       line-height: 1.85;
-      letter-spacing: 0.01em;
+      letter-spacing: 0.03em;
     }
 
     .wrap {
@@ -50,39 +52,55 @@
     }
 
     .hero {
-      background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,248,249,0.78));
-      border: 1px solid rgba(255,255,255,0.6);
+      background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,248,249,0.85));
+      border: 1px solid rgba(255,255,255,0.8);
       box-shadow: var(--shadow);
       border-radius: 32px;
-      padding: 28px 22px;
+      padding: 32px 24px;
       margin-bottom: 22px;
       backdrop-filter: blur(10px);
+      text-align: center;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--accent-dark);
       background: var(--accent-soft);
       border-radius: var(--radius-pill);
-      padding: 7px 12px;
-      margin-bottom: 14px;
+      padding: 8px 16px;
+      margin-bottom: 16px;
     }
 
     h1 {
-      margin: 0 0 10px;
-      font-size: clamp(28px, 4vw, 38px);
-      line-height: 1.35;
-      letter-spacing: 0.02em;
+      margin: 0 0 12px;
+      font-size: clamp(24px, 4vw, 34px);
+      line-height: 1.4;
+      font-weight: 900;
+    }
+    
+    h1 .title-sub {
+      display: block;
+      font-size: 0.55em;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 4px;
     }
 
     .lead {
       margin: 0;
-      color: var(--muted);
+      color: var(--text);
       font-size: 15px;
+    }
+
+    .lead .lead-sub {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
     }
 
     .grid {
@@ -93,7 +111,7 @@
 
     .card {
       background: var(--card);
-      border: 1px solid rgba(255,255,255,0.65);
+      border: 1px solid rgba(255,255,255,0.8);
       border-radius: var(--radius-xl);
       padding: 24px 18px;
       box-shadow: var(--shadow);
@@ -103,22 +121,27 @@
     .card h2 {
       margin: 0 0 8px;
       font-size: 22px;
-      letter-spacing: 0.01em;
+      font-weight: 700;
     }
 
     .card-head {
-      margin-bottom: 8px;
+      margin-bottom: 16px;
+      text-align: center;
     }
 
     .card-note {
       color: var(--muted);
-      font-size: 13px;
+      font-size: 14px;
       margin-top: 4px;
+      background: #fdfaf8;
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: var(--radius-pill);
     }
 
     .q {
-      padding: 20px 0;
-      border-bottom: 1px solid var(--line);
+      padding: 24px 0;
+      border-bottom: 1px dashed var(--line);
     }
 
     .q:last-child {
@@ -127,20 +150,22 @@
     }
 
     .q-title {
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 700;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
+      color: var(--accent-dark);
     }
 
-    .q-sub {
+    .q-title-sub {
       font-size: 13px;
       color: var(--muted);
-      margin-bottom: 12px;
+      font-weight: 400;
+      margin-bottom: 14px;
     }
 
     .option {
       display: block;
-      margin: 10px 0;
+      margin: 12px 0;
       cursor: pointer;
     }
 
@@ -151,28 +176,28 @@
     .option-box {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
+      gap: 14px;
       width: 100%;
-      padding: 14px 15px;
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.78);
+      padding: 16px;
+      border-radius: 18px;
+      border: 2px solid transparent;
+      background: rgba(255,255,255,0.7);
+      box-shadow: 0 4px 12px rgba(112, 89, 88, 0.03);
       transition: 0.2s ease;
     }
 
     .option-box:hover {
-      transform: translateY(-1px);
+      transform: translateY(-2px);
       background: #fff;
-      border-color: #e3c7cf;
-      box-shadow: 0 8px 20px rgba(187, 144, 154, 0.08);
+      box-shadow: 0 8px 20px rgba(187, 144, 154, 0.1);
     }
 
     .mark {
-      width: 22px;
-      height: 22px;
-      flex: 0 0 22px;
+      width: 24px;
+      height: 24px;
+      flex: 0 0 24px;
       border-radius: 50%;
-      border: 1.5px solid #d7c7c4;
+      border: 2px solid #e0d4d2;
       background: #fff;
       margin-top: 2px;
       position: relative;
@@ -180,18 +205,18 @@
     }
 
     .mark.checkbox {
-      border-radius: 7px;
+      border-radius: 8px;
     }
 
     .option input:checked + .option-box {
-      border-color: #dca5b3;
-      background: linear-gradient(180deg, #fffafb 0%, #fff3f6 100%);
-      box-shadow: 0 10px 24px rgba(201, 143, 159, 0.12);
+      border-color: #eabfd0;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(201, 143, 159, 0.15);
     }
 
     .option input:checked + .option-box .mark {
       border-color: var(--accent);
-      background: linear-gradient(180deg, #d69baa, #bc7e8f);
+      background: var(--accent);
     }
 
     .option input:checked + .option-box .mark::after {
@@ -207,19 +232,34 @@
       border-radius: 4px;
     }
 
-    .option-text {
-      font-size: 14px;
+    /* 選択肢の2段組み用CSS */
+    .option-text-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    
+    .text-main {
+      font-size: 15px;
+      font-weight: 500;
       color: var(--text);
+    }
+
+    .text-sub {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.4;
     }
 
     textarea {
       width: 100%;
       min-height: 120px;
       border-radius: 18px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.92);
+      border: 2px solid transparent;
+      background: rgba(255,255,255,0.7);
+      box-shadow: 0 4px 12px rgba(112, 89, 88, 0.03);
       padding: 16px 16px;
-      font-size: 14px;
+      font-size: 15px;
       font-family: inherit;
       color: var(--text);
       outline: none;
@@ -228,56 +268,64 @@
     }
 
     textarea:focus {
-      border-color: #d7a7b4;
-      box-shadow: 0 0 0 4px rgba(215, 167, 180, 0.12);
+      background: #fff;
+      border-color: #eabfd0;
+      box-shadow: 0 8px 24px rgba(201, 143, 159, 0.15);
     }
 
     .actions {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 12px;
-      margin-top: 24px;
+      margin-top: 32px;
     }
 
     button {
       appearance: none;
       border: none;
       border-radius: var(--radius-pill);
-      padding: 13px 20px;
-      font-size: 14px;
+      padding: 16px 28px;
+      font-size: 15px;
       font-weight: 700;
+      font-family: inherit;
       cursor: pointer;
       transition: 0.2s ease;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.03em;
     }
 
     .btn-main {
-      background: linear-gradient(135deg, #c98f9f 0%, #b27888 100%);
+      background: linear-gradient(135deg, #d49caa 0%, #b87b8d 100%);
       color: #fff;
-      box-shadow: 0 12px 24px rgba(177, 120, 136, 0.22);
+      box-shadow: 0 8px 20px rgba(177, 120, 136, 0.3);
+      flex: 1;
+      min-width: 200px;
+      max-width: 300px;
     }
 
     .btn-main:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 26px rgba(177, 120, 136, 0.28);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(177, 120, 136, 0.4);
     }
 
     .btn-sub {
-      background: rgba(255,255,255,0.88);
+      background: rgba(255,255,255,0.9);
       color: var(--text);
       border: 1px solid var(--line);
     }
 
     .btn-sub:hover {
       background: #fff;
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(112, 89, 88, 0.06);
     }
 
     .warn {
-      margin-top: 14px;
-      color: #b54e66;
-      font-size: 13px;
+      margin-top: 16px;
+      color: #c46479;
+      font-size: 14px;
       font-weight: 700;
+      text-align: center;
     }
 
     .result {
@@ -297,24 +345,24 @@
     .summary-box {
       background: var(--card);
       border-radius: var(--radius-xl);
-      border: 1px solid rgba(255,255,255,0.68);
+      border: 1px solid rgba(255,255,255,0.8);
       box-shadow: var(--shadow);
-      padding: 22px 18px;
+      padding: 28px 22px;
       backdrop-filter: blur(10px);
     }
 
     .type-name {
-      font-size: clamp(22px, 3vw, 30px);
-      font-weight: 800;
+      font-size: clamp(20px, 3vw, 26px);
+      font-weight: 900;
       line-height: 1.45;
-      margin-bottom: 10px;
-      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+      color: var(--accent-dark);
     }
 
     .type-desc {
       color: var(--text);
-      font-size: 14px;
-      margin-bottom: 14px;
+      font-size: 15px;
+      margin-bottom: 16px;
     }
 
     .pill-wrap {
@@ -327,53 +375,62 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 8px 12px;
-      font-size: 12px;
+      padding: 8px 14px;
+      font-size: 13px;
       font-weight: 700;
-      color: #745d66;
-      background: #f6ebee;
+      color: #8a6c77;
+      background: #fff;
       border-radius: var(--radius-pill);
-      border: 1px solid #ecd8de;
+      border: 1px solid #f0e1e5;
     }
 
     .section-title {
       font-size: 18px;
-      font-weight: 800;
-      margin: 0 0 12px;
+      font-weight: 700;
+      margin: 0 0 16px;
+      color: var(--accent-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .layer-text,
-    .summary-text,
-    .advice-list {
-      font-size: 14px;
+    .summary-text {
+      font-size: 15px;
       color: var(--text);
       white-space: pre-wrap;
+      background: rgba(255,255,255,0.6);
+      padding: 16px;
+      border-radius: 12px;
     }
 
     .soft-note {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--muted);
-      margin-top: 10px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--line);
     }
 
     .bar-row {
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .bar-label {
       display: flex;
       justify-content: space-between;
       gap: 10px;
-      font-size: 13px;
-      margin-bottom: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
       color: var(--text);
     }
 
     .bar {
       width: 100%;
-      height: 10px;
+      height: 12px;
       border-radius: 999px;
-      background: #f0e8e5;
+      background: #f4efed;
       overflow: hidden;
     }
 
@@ -381,33 +438,32 @@
       height: 100%;
       width: 0;
       border-radius: 999px;
-      background: linear-gradient(90deg, #d6a0ae 0%, #c48c9b 100%);
+      background: linear-gradient(90deg, #e3bac5 0%, #c48c9b 100%);
+      transition: width 1s ease-out;
     }
 
     .summary-text {
-      line-height: 1.95;
+      line-height: 1.8;
+      font-family: monospace, sans-serif;
     }
 
     .foot {
       text-align: center;
       color: var(--muted);
-      font-size: 12px;
-      margin-top: 22px;
+      font-size: 13px;
+      margin-top: 32px;
     }
 
     @media (min-width: 900px) {
       .wrap {
         padding-top: 34px;
       }
-
       .card {
-        padding: 28px 24px;
+        padding: 32px 40px;
       }
-
       .result-grid {
-        grid-template-columns: 1.05fr 0.95fr;
+        grid-template-columns: 1fr 1fr;
       }
-
       .summary-box,
       .score-box {
         grid-column: span 2;
@@ -418,11 +474,14 @@
 <body>
   <div class="wrap">
     <section class="hero">
-      <div class="eyebrow">🌙 深い感覚の整理ツール</div>
-      <h1>ポルチオ反応タイプチェック</h1>
+      <div class="eyebrow">🌙 自分のカラダのトリセツ作り</div>
+      <h1>
+        わたしのカラダ感覚チェック
+        <span class="title-sub">（ポルチオ反応タイプ）</span>
+      </h1>
       <p class="lead">
-        「深い刺激がどう入ってきやすいか」を整理して、事前のやり取りを少しスムーズにするための簡易チェックです。<br>
-        感度の高い・低いを決めるものではなく、<strong>深部の圧がどう処理されやすいか</strong>を見るための目安として使ってください。
+        奥のほうの感覚に、自分がどう反応しやすいかを整理するためのチェックです。<br>
+        <span class="lead-sub">（感度の良し悪しではなく、深部の圧がどう処理されやすいかを見るための目安です）</span>
       </p>
     </section>
 
@@ -430,18 +489,21 @@
       <section class="card">
         <div class="card-head">
           <h2>チェック項目</h2>
-          <div class="card-note">直感で近いものを選べば大丈夫です。全部をきれいに説明しようとしなくてOK。</div>
+          <div class="card-note">直感で「これかも」と思うものを選んでくださいね</div>
         </div>
 
         <div class="q">
-          <div class="q-title">1. 深い刺激が入った時、いちばん近いのは？</div>
-          <div class="q-sub">「奥に当たる感じ」をどう受け取りやすいか</div>
+          <div class="q-title">Q1. 奥のほうに触れられたとき、どんな感覚に近いですか？</div>
+          <div class="q-title-sub">（深い刺激が入った時、いちばん近いのは？）</div>
 
           <label class="option">
             <input type="radio" name="q1" value="pressure">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">当たっている・押されている感じは分かるけど、それ以上にはなりにくい</span>
+              <span class="option-text-wrap">
+                <span class="text-main">「触れてるな」とは思うけど、気持ちよさには繋がりにくい</span>
+                <span class="text-sub">（当たっている・押されている感じは分かるけど、それ以上にはなりにくい）</span>
+              </span>
             </span>
           </label>
 
@@ -449,7 +511,10 @@
             <input type="radio" name="q1" value="defense">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">奥にくると少し身構える、力が入りやすい</span>
+              <span class="option-text-wrap">
+                <span class="text-main">奥にくると「うっ」と身構えたり、力が入ってしまう</span>
+                <span class="text-sub">（奥にくると少し身構える、力が入りやすい）</span>
+              </span>
             </span>
           </label>
 
@@ -457,7 +522,10 @@
             <input type="radio" name="q1" value="late">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">最初は分からないけど、後半になると変わる時がある</span>
+              <span class="option-text-wrap">
+                <span class="text-main">最初は分からないけど、時間が経つと変わる時がある</span>
+                <span class="text-sub">（最初は分からないけど、後半になると変わる時がある）</span>
+              </span>
             </span>
           </label>
 
@@ -465,7 +533,10 @@
             <input type="radio" name="q1" value="outer">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">奥よりも表面・浅めの刺激のほうが気持ちよさにつながりやすい</span>
+              <span class="option-text-wrap">
+                <span class="text-main">奥よりも、浅いところや外側のほうが気持ちいい</span>
+                <span class="text-sub">（奥よりも表面・浅めの刺激のほうが気持ちよさにつながりやすい）</span>
+              </span>
             </span>
           </label>
 
@@ -473,19 +544,26 @@
             <input type="radio" name="q1" value="low">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">そもそも何を感じているのか自分でもつかみにくい</span>
+              <span class="option-text-wrap">
+                <span class="text-main">そもそも、自分が何を感じているのかピンとこない</span>
+                <span class="text-sub">（そもそも何を感じているのか自分でもつかみにくい）</span>
+              </span>
             </span>
           </label>
         </div>
 
         <div class="q">
-          <div class="q-title">2. 奥に当たった時に起きやすいことは？（複数可）</div>
+          <div class="q-title">Q2. 奥に触れられた時、カラダに起きやすいことは？（複数可）</div>
+          <div class="q-title-sub">（奥に当たった時に起きやすいことは？）</div>
 
           <label class="option">
             <input type="checkbox" name="q2" value="breathStop">
             <span class="option-box">
               <span class="mark checkbox"></span>
-              <span class="option-text">呼吸が止まりやすい</span>
+              <span class="option-text-wrap">
+                <span class="text-main">無意識に息を止めてしまいがち</span>
+                <span class="text-sub">（呼吸が止まりやすい）</span>
+              </span>
             </span>
           </label>
 
@@ -493,7 +571,10 @@
             <input type="checkbox" name="q2" value="legsTense">
             <span class="option-box">
               <span class="mark checkbox"></span>
-              <span class="option-text">お腹・脚・腰に力が入りやすい</span>
+              <span class="option-text-wrap">
+                <span class="text-main">お腹・脚・腰がピンと張って力が入る</span>
+                <span class="text-sub">（お腹・脚・腰に力が入りやすい）</span>
+              </span>
             </span>
           </label>
 
@@ -501,7 +582,10 @@
             <input type="checkbox" name="q2" value="numb">
             <span class="option-box">
               <span class="mark checkbox"></span>
-              <span class="option-text">圧はあるけど、快感としてはぼんやりしている</span>
+              <span class="option-text-wrap">
+                <span class="text-main">押されている感覚はあるけど、快感としてはぼんやり</span>
+                <span class="text-sub">（圧はあるけど、快感としてはぼんやりしている）</span>
+              </span>
             </span>
           </label>
 
@@ -509,7 +593,10 @@
             <input type="checkbox" name="q2" value="laterOpens">
             <span class="option-box">
               <span class="mark checkbox"></span>
-              <span class="option-text">少し時間が経つと入り方が変わることがある</span>
+              <span class="option-text-wrap">
+                <span class="text-main">しばらくすると、フワッと感覚が開くことがある</span>
+                <span class="text-sub">（少し時間が経つと入り方が変わることがある）</span>
+              </span>
             </span>
           </label>
 
@@ -517,19 +604,26 @@
             <input type="checkbox" name="q2" value="dayDiff">
             <span class="option-box">
               <span class="mark checkbox"></span>
-              <span class="option-text">相手や日によってかなり差がある</span>
+              <span class="option-text-wrap">
+                <span class="text-main">その日の気分や相手によって、ぜんぜん違う</span>
+                <span class="text-sub">（相手や日によってかなり差がある）</span>
+              </span>
             </span>
           </label>
         </div>
 
         <div class="q">
-          <div class="q-title">3. 反応しやすくなる条件として近いのは？</div>
+          <div class="q-title">Q3. 「気持ちいい」と感じやすくなる条件は？</div>
+          <div class="q-title-sub">（反応しやすくなる条件として近いのは？）</div>
 
           <label class="option">
             <input type="radio" name="q3" value="context">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">安心感や空気感があること</span>
+              <span class="option-text-wrap">
+                <span class="text-main">リラックスできる空気感や、安心感があること</span>
+                <span class="text-sub">（安心感や空気感があること）</span>
+              </span>
             </span>
           </label>
 
@@ -537,7 +631,10 @@
             <input type="radio" name="q3" value="slow">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">急がず、時間をかけて進むこと</span>
+              <span class="option-text-wrap">
+                <span class="text-main">急がず、ゆっくり時間をかけてもらうこと</span>
+                <span class="text-sub">（急がず、時間をかけて進むこと）</span>
+              </span>
             </span>
           </label>
 
@@ -545,7 +642,10 @@
             <input type="radio" name="q3" value="same">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">変化が多すぎず、一定のリズムが続くこと</span>
+              <span class="option-text-wrap">
+                <span class="text-main">やり方をコロコロ変えず、一定のリズムで続けてもらうこと</span>
+                <span class="text-sub">（変化が多すぎず、一定のリズムが続くこと）</span>
+              </span>
             </span>
           </label>
 
@@ -553,7 +653,10 @@
             <input type="radio" name="q3" value="outer">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">奥を追うより、自分に合う感覚を優先すること</span>
+              <span class="option-text-wrap">
+                <span class="text-main">奥を狙うより、自分が心地よいポイントを優先してもらうこと</span>
+                <span class="text-sub">（奥を追うより、自分に合う感覚を優先すること）</span>
+              </span>
             </span>
           </label>
 
@@ -561,19 +664,26 @@
             <input type="radio" name="q3" value="unknown">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">まだよく分からない</span>
+              <span class="option-text-wrap">
+                <span class="text-main">まだ自分でもよく分からない</span>
+                <span class="text-sub">（まだよく分からない）</span>
+              </span>
             </span>
           </label>
         </div>
 
         <div class="q">
-          <div class="q-title">4. 深い刺激に対する自分の印象は？</div>
+          <div class="q-title">Q4. 「奥のほうの感覚」に対する、あなたのイメージは？</div>
+          <div class="q-title-sub">（深い刺激に対する自分の印象は？）</div>
 
           <label class="option">
             <input type="radio" name="q4" value="pressure">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">圧や存在感は分かるけど、快感に変わりにくい</span>
+              <span class="option-text-wrap">
+                <span class="text-main">押されてる感はあるけど、快感とはちょっと違う</span>
+                <span class="text-sub">（圧や存在感は分かるけど、快感に変わりにくい）</span>
+              </span>
             </span>
           </label>
 
@@ -581,7 +691,10 @@
             <input type="radio" name="q4" value="defense">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">嫌ではないけど、身体が守りに入る感じがある</span>
+              <span class="option-text-wrap">
+                <span class="text-main">嫌じゃないけど、無意識にカラダがガードしちゃう</span>
+                <span class="text-sub">（嫌ではないけど、身体が守りに入る感じがある）</span>
+              </span>
             </span>
           </label>
 
@@ -589,7 +702,10 @@
             <input type="radio" name="q4" value="late">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">最初ではなく、後から入ってくる感じがある</span>
+              <span class="option-text-wrap">
+                <span class="text-main">最初からじゃなく、後からじわじわ効いてくる感じ</span>
+                <span class="text-sub">（最初ではなく、後から入ってくる感じがある）</span>
+              </span>
             </span>
           </label>
 
@@ -597,7 +713,10 @@
             <input type="radio" name="q4" value="context">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">相手や流れでかなり変わる</span>
+              <span class="option-text-wrap">
+                <span class="text-main">相手やその時のムードでまったく変わる</span>
+                <span class="text-sub">（相手や流れでかなり変わる）</span>
+              </span>
             </span>
           </label>
 
@@ -605,7 +724,10 @@
             <input type="radio" name="q4" value="outer">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">奥が主役という感じはしない</span>
+              <span class="option-text-wrap">
+                <span class="text-main">奥のほうがメインじゃなくてもいいかなと思う</span>
+                <span class="text-sub">（奥が主役という感じはしない）</span>
+              </span>
             </span>
           </label>
 
@@ -613,19 +735,26 @@
             <input type="radio" name="q4" value="low">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">まだ自分の反応がよく分からない</span>
+              <span class="option-text-wrap">
+                <span class="text-main">自分の反応がまだよく掴めていない</span>
+                <span class="text-sub">（まだ自分の反応がよく分からない）</span>
+              </span>
             </span>
           </label>
         </div>
 
         <div class="q">
-          <div class="q-title">5. 進め方として安心しやすいものは？（複数可）</div>
+          <div class="q-title">Q5. どんな風に進めてもらえると安心しますか？（複数可）</div>
+          <div class="q-title-sub">（進め方として安心しやすいものは？）</div>
 
           <label class="option">
             <input type="checkbox" name="q5" value="talk">
             <span class="option-box">
               <span class="mark checkbox"></span>
-              <span class="option-text">途中で確認しながら進む</span>
+              <span class="option-text-wrap">
+                <span class="text-main">「痛くない？」と確認しながら進めてほしい</span>
+                <span class="text-sub">（途中で確認しながら進む）</span>
+              </span>
             </span>
           </label>
 
@@ -633,7 +762,10 @@
             <input type="checkbox" name="q5" value="gentle">
             <span class="option-box">
               <span class="mark checkbox"></span>
-              <span class="option-text">強さよりやさしさ重視</span>
+              <span class="option-text-wrap">
+                <span class="text-main">激しさより、とにかく優しくしてほしい</span>
+                <span class="text-sub">（強さよりやさしさ重視）</span>
+              </span>
             </span>
           </label>
 
@@ -641,7 +773,10 @@
             <input type="checkbox" name="q5" value="slow">
             <span class="option-box">
               <span class="mark checkbox"></span>
-              <span class="option-text">急がずじわっと進む</span>
+              <span class="option-text-wrap">
+                <span class="text-main">焦らず、じわじわと進めてほしい</span>
+                <span class="text-sub">（急がずじわっと進む）</span>
+              </span>
             </span>
           </label>
 
@@ -649,7 +784,10 @@
             <input type="checkbox" name="q5" value="same">
             <span class="option-box">
               <span class="mark checkbox"></span>
-              <span class="option-text">合うものをあまり変えずに続ける</span>
+              <span class="option-text-wrap">
+                <span class="text-main">「これだ」と思うやり方を、しばらく続けてほしい</span>
+                <span class="text-sub">（合うものをあまり変えずに続ける）</span>
+              </span>
             </span>
           </label>
 
@@ -657,19 +795,26 @@
             <input type="checkbox" name="q5" value="free">
             <span class="option-box">
               <span class="mark checkbox"></span>
-              <span class="option-text">その場で様子を見ながら決めたい</span>
+              <span class="option-text-wrap">
+                <span class="text-main">その場の雰囲気や、様子を見ながら合わせてほしい</span>
+                <span class="text-sub">（その場で様子を見ながら決めたい）</span>
+              </span>
             </span>
           </label>
         </div>
 
         <div class="q">
-          <div class="q-title">6. 深い刺激について、近いものは？</div>
+          <div class="q-title">Q6. 最終確認！今の自分にいちばん近いのは？</div>
+          <div class="q-title-sub">（深い刺激について、近いものは？）</div>
 
           <label class="option">
             <input type="radio" name="q6" value="pressureOnly">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">圧としては分かる</span>
+              <span class="option-text-wrap">
+                <span class="text-main">「押されてる」という感覚だけはある</span>
+                <span class="text-sub">（圧としては分かる）</span>
+              </span>
             </span>
           </label>
 
@@ -677,7 +822,10 @@
             <input type="radio" name="q6" value="guardFirst">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">まず守る感じが先に出る</span>
+              <span class="option-text-wrap">
+                <span class="text-main">気持ちいいより先に、カラダが「守らなきゃ」と反応する</span>
+                <span class="text-sub">（まず守る感じが先に出る）</span>
+              </span>
             </span>
           </label>
 
@@ -685,7 +833,10 @@
             <input type="radio" name="q6" value="needBuild">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">反応までにかなり積み上げが必要</span>
+              <span class="option-text-wrap">
+                <span class="text-main">気持ちよくなるまでに、かなり時間やムードが必要</span>
+                <span class="text-sub">（反応までにかなり積み上げが必要）</span>
+              </span>
             </span>
           </label>
 
@@ -693,7 +844,10 @@
             <input type="radio" name="q6" value="depends">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">条件が合う時と合わない時の差が大きい</span>
+              <span class="option-text-wrap">
+                <span class="text-main">条件がバッチリ合う時と、そうじゃない時の差が激しい</span>
+                <span class="text-sub">（条件が合う時と合わない時の差が大きい）</span>
+              </span>
             </span>
           </label>
 
@@ -701,19 +855,22 @@
             <input type="radio" name="q6" value="notMain">
             <span class="option-box">
               <span class="mark"></span>
-              <span class="option-text">深部は自分の主軸じゃない気がする</span>
+              <span class="option-text-wrap">
+                <span class="text-main">自分にとって、奥の感覚はそこまで重要じゃないかも</span>
+                <span class="text-sub">（深部は自分の主軸じゃない気がする）</span>
+              </span>
             </span>
           </label>
         </div>
 
         <div class="q">
-          <div class="q-title">7. 補足メモ</div>
-          <div class="q-sub">気になることや伝えておきたいことがあれば自由にどうぞ</div>
-          <textarea id="memo" placeholder="例：最初は反応が薄い / 急に深くなると力が入る / 空気感でかなり変わる など"></textarea>
+          <div class="q-title">Q7. 補足メモがあれば自由にどうぞ</div>
+          <div class="q-title-sub">（気になることや伝えておきたいことがあれば）</div>
+          <textarea id="memo" placeholder="例：最初は緊張しちゃう / 急に奥に来ると力が入る / ムードでかなり変わる など"></textarea>
         </div>
 
         <div class="actions">
-          <button class="btn-main" onclick="diagnose()">判定する</button>
+          <button class="btn-main" onclick="diagnose()">結果を見る</button>
           <button class="btn-sub" onclick="copySummary()">共有文をコピー</button>
           <button class="btn-sub" onclick="resetForm()">リセット</button>
         </div>
@@ -731,22 +888,22 @@
               <span class="pill" id="layerHintPill"></span>
             </div>
             <div class="soft-note">
-              これは「感じる / 感じない」の優劣ではなく、深部の圧がどう処理されやすいかを見るための簡易判定です。
+              ※これは「感じる / 感じない」の優劣を判定するものではありません。パートナーに自分の感覚を伝えるためのヒントとして使ってみてくださいね。
             </div>
           </section>
 
           <section class="layer-box">
-            <h3 class="section-title">3層モデルで見た詰まりやすい場所</h3>
+            <h3 class="section-title">💡 詰まりやすいポイント</h3>
             <div class="layer-text" id="layerText"></div>
           </section>
 
           <section class="score-box">
-            <h3 class="section-title">反応タイプの内訳</h3>
+            <h3 class="section-title">📊 あなたの傾向グラフ</h3>
             <div id="scoreBars"></div>
           </section>
 
           <section class="summary-box">
-            <h3 class="section-title">共有用サマリー</h3>
+            <h3 class="section-title">💌 パートナーへの共有用サマリー</h3>
             <div class="summary-text" id="summaryText"></div>
           </section>
         </div>
@@ -754,7 +911,7 @@
     </div>
 
     <div class="foot">
-      深い感覚の整理を、少し言葉にしやすくするための補助ツール
+      自分のカラダをもっと知るための補助ツール
     </div>
   </div>
 
@@ -779,11 +936,11 @@
     function copySummary() {
       const text = document.getElementById('summaryText').textContent.trim();
       if (!text) {
-        alert('先に判定してください。まだ何もないのにコピーしても、ただの虚無です。');
+        alert('まずは「結果を見る」ボタンを押してね！');
         return;
       }
       navigator.clipboard.writeText(text)
-        .then(() => alert('共有文をコピーしました'))
+        .then(() => alert('共有用サマリーをコピーしました！'))
         .catch(() => alert('コピーに失敗しました'));
     }
 
@@ -798,7 +955,7 @@
       const warn = document.getElementById('warn');
 
       if (!q1 || !q3 || !q4 || !q6) {
-        warn.textContent = '1・3・4・6 は選択してください。ここが空だとポルチオ判定がただの雰囲気占いになります。';
+        warn.textContent = 'ごめんなさい！Q1・Q3・Q4・Q6 は選んでから判定してくださいね。';
         return;
       }
       warn.textContent = '';
@@ -827,29 +984,11 @@
 
       // Q2
       q2.forEach(v => {
-        if (v === 'breathStop') {
-          scores.defense += 2;
-          layers.pelvic += 2;
-          layers.neural += 1;
-        }
-        if (v === 'legsTense') {
-          scores.defense += 2;
-          layers.pelvic += 2;
-        }
-        if (v === 'numb') {
-          scores.pressure += 2;
-          scores.low += 2;
-          layers.neural += 2;
-        }
-        if (v === 'laterOpens') {
-          scores.late += 3;
-          layers.design += 2;
-        }
-        if (v === 'dayDiff') {
-          scores.context += 3;
-          layers.neural += 1;
-          layers.design += 1;
-        }
+        if (v === 'breathStop') { scores.defense += 2; layers.pelvic += 2; layers.neural += 1; }
+        if (v === 'legsTense')  { scores.defense += 2; layers.pelvic += 2; }
+        if (v === 'numb')       { scores.pressure += 2; scores.low += 2; layers.neural += 2; }
+        if (v === 'laterOpens') { scores.late += 3; layers.design += 2; }
+        if (v === 'dayDiff')    { scores.context += 3; layers.neural += 1; layers.design += 1; }
       });
 
       // Q3
@@ -869,29 +1008,11 @@
 
       // Q5
       q5.forEach(v => {
-        if (v === 'talk') {
-          scores.context += 1;
-          scores.defense += 1;
-          layers.neural += 1;
-        }
-        if (v === 'gentle') {
-          scores.defense += 2;
-          layers.pelvic += 1;
-          layers.design += 1;
-        }
-        if (v === 'slow') {
-          scores.late += 2;
-          layers.design += 1;
-        }
-        if (v === 'same') {
-          scores.pressure += 1;
-          scores.late += 1;
-          layers.design += 1;
-        }
-        if (v === 'free') {
-          scores.low += 1;
-          scores.context += 1;
-        }
+        if (v === 'talk')   { scores.context += 1; scores.defense += 1; layers.neural += 1; }
+        if (v === 'gentle') { scores.defense += 2; layers.pelvic += 1; layers.design += 1; }
+        if (v === 'slow')   { scores.late += 2; layers.design += 1; }
+        if (v === 'same')   { scores.pressure += 1; scores.late += 1; layers.design += 1; }
+        if (v === 'free')   { scores.low += 1; scores.context += 1; }
       });
 
       // Q6
@@ -901,34 +1022,35 @@
       if (q6 === 'depends')      { scores.context += 4; layers.neural += 2; }
       if (q6 === 'notMain')      { scores.outer += 4; }
 
+      // やわらかい言葉に変更（元の言葉は括弧に）
       const labels = {
-        pressure: '圧覚止まり型',
-        defense: '防御緊張型',
-        low: '低反応・鈍麻型',
-        late: '後半開通型',
-        context: '文脈依存型',
-        outer: '深部不適合型'
+        pressure: 'じんわりストップさん（圧覚止まり型）',
+        defense: 'きゅっとガードさん（防御緊張型）',
+        low: 'まだまだおやすみさん（低反応・鈍麻型）',
+        late: 'じわじわエンジンさん（後半開通型）',
+        context: 'ムード重視さん（文脈依存型）',
+        outer: '浅めフォーカスさん（深部不適合型）'
       };
 
       const descs = {
-        pressure: '深い刺激そのものは分かるけれど、快感への翻訳が途中で止まりやすいタイプです。ポルチオが「無反応」なのではなく、圧としては入っているけれど快感化しにくい状態に近いです。',
-        defense: '深い刺激に対して、快感より先に身体の守りが出やすいタイプです。奥への入力が快ではなく防御として処理されやすいため、骨盤底や呼吸の反応がかなり影響しやすいです。',
-        low: 'ポルチオ以前に、深部感覚そのものの解像度がまだ低い可能性があるタイプです。何もないというより、変化をまだ読み取りにくい状態に近いです。',
-        late: '最初から反応するのではなく、安心感・興奮・流れが積み上がった後に深部感覚が立ち上がりやすいタイプです。ポルチオが初速ではなく蓄積で開きやすい傾向があります。',
-        context: '刺激の当たり方だけでなく、相手との空気感・信頼感・進め方でかなり変わるタイプです。ポルチオ反応が文脈依存で、条件が合う時だけ入りやすい傾向があります。',
-        outer: 'ポルチオを主軸にしなくてもいい可能性が高いタイプです。深部よりも他の感覚の方が快感の中心になりやすく、無理に奥を追わない方が合うことがあります。'
+        pressure: '奥のほうの刺激そのものは感じているけれど、それが「気持ちいい」に変わる前に止まってしまいやすいタイプです。\n（ポルチオが「無反応」なのではなく、圧としては入っているけれど快感化しにくい状態に近いです）',
+        defense: '奥のほうに刺激がくると、快感よりも先にカラダが「守らなきゃ！」と無意識に反応しやすいタイプです。\n（奥への入力が快ではなく防御として処理されやすいため、骨盤底や呼吸の反応が影響しやすいです）',
+        low: 'ポルチオ以前に、奥のほうの感覚そのものがまだ掴みきれていない可能性があるタイプです。\n（何もないというより、変化をまだ読み取りにくい状態に近いです）',
+        late: '最初からパッと感じるのではなく、安心感や気分の盛り上がり、ムードが積み重なってから、奥の感覚がひらいてくるタイプです。\n（ポルチオが初速ではなく蓄積で開きやすい傾向があります）',
+        context: '刺激の当たり方だけではなく、相手との空気感や信頼感、その日の進め方によって、感じ方がガラッと変わるタイプです。\n（ポルチオ反応が文脈依存で、条件が合う時だけ入りやすい傾向があります）',
+        outer: '奥のほうの感覚（ポルチオ）をメインにしなくてもいい可能性が高いタイプです。\n（深部よりも他の感覚の方が快感の中心になりやすく、無理に奥を追わない方が合うことがあります）'
       };
 
       const layerNames = {
-        neural: '神経レイヤー',
-        pelvic: '骨盤底レイヤー',
-        design: '刺激設計レイヤー'
+        neural: 'カンカクの通り道（神経レイヤー）',
+        pelvic: 'カラダのまもり（骨盤底レイヤー）',
+        design: 'コミュニケーションとペース（刺激設計レイヤー）'
       };
 
       const layerDescs = {
-        neural: '深部の圧を「快感候補」として脳がどう翻訳するかの層です。\n\n圧としては分かるのに快感化しにくい、相手や文脈で反応が変わる、感覚がまだつかみにくい時に関わりやすいです。',
-        pelvic: '奥の刺激に対して身体が守りに入るか、受け止められるかの層です。\n\n呼吸停止、脚や腹の力み、奥で硬くなる感じが出やすい時に詰まりやすいです。',
-        design: '深さ・角度・リズム・積み上げ方の層です。\n\n最初は入らず後半だけ変わる、急な変化が苦手、一定の流れの方が入りやすい時に関わりやすいです。'
+        neural: '奥の感覚を「気持ちいいかも」と脳が受け取るための通り道です。\n（圧としては分かるのに快感化しにくい、相手や文脈で反応が変わる、感覚がまだつかみにくい時に関わりやすい層です）',
+        pelvic: '奥の刺激に対してカラダが無意識に守りに入るか、リラックスして受け止められるかの層です。\n（呼吸が止まる、脚や腹の力み、奥で硬くなる感じが出やすい時に詰まりやすいです）',
+        design: '深さ・角度・リズム・積み上げ方といった、2人の「ペース」の層です。\n（最初は入らず後半だけ変わる、急な変化が苦手、一定の流れの方が入りやすい時に関わりやすいです）'
       };
 
       const sortedTypes = Object.entries(scores).sort((a, b) => b[1] - a[1]);
@@ -938,12 +1060,13 @@
       const sortedLayers = Object.entries(layers).sort((a, b) => b[1] - a[1]);
       const mainLayer = sortedLayers[0][0];
 
-      document.getElementById('mainType').textContent =
-        `${labels[mainType]}${scores[subType] > 0 ? ` / ${labels[subType]}傾向あり` : ''}`;
-
+      // 結果表示のDOM更新
+      document.getElementById('mainType').textContent = labels[mainType];
       document.getElementById('mainDesc').textContent = descs[mainType];
-      document.getElementById('subTypePill').textContent = `副傾向: ${labels[subType]}`;
-      document.getElementById('layerHintPill').textContent = `詰まりやすい層: ${layerNames[mainLayer]}`;
+      
+      const subLabel = scores[subType] > 0 ? labels[subType] : 'なし';
+      document.getElementById('subTypePill').textContent = `隠れ傾向: ${subLabel}`;
+      document.getElementById('layerHintPill').textContent = `課題になりやすい層: ${layerNames[mainLayer]}`;
       document.getElementById('layerText').textContent = layerDescs[mainLayer];
 
       const maxScore = Math.max(...Object.values(scores), 1);
@@ -952,8 +1075,7 @@
         return `
           <div class="bar-row">
             <div class="bar-label">
-              <span>${labels[key]}</span>
-              <strong>${val}点</strong>
+              <span>${labels[key].split('（')[0]}</span>
             </div>
             <div class="bar">
               <div class="bar-fill" style="width:${percent}%"></div>
@@ -963,20 +1085,21 @@
       }).join('');
       document.getElementById('scoreBars').innerHTML = scoreBarsHtml;
 
-      const supports = [];
-      if (q5.includes('talk')) supports.push('途中で確認しながら進むと安心しやすい');
-      if (q5.includes('gentle')) supports.push('強さよりやさしさ重視の方が合いやすい');
-      if (q5.includes('slow')) supports.push('急がず時間をかける方が入りやすい');
+      const supports =[];
+      if (q5.includes('talk')) supports.push('途中で「痛くない？」と確認しながら進むと安心しやすい');
+      if (q5.includes('gentle')) supports.push('強さより優しさ重視の方が合いやすい');
+      if (q5.includes('slow')) supports.push('急がずじっくり時間をかける方が入りやすい');
       if (q5.includes('same')) supports.push('コロコロ変えず、一定の流れが合いやすい');
-      if (q5.includes('free')) supports.push('その場で様子を見ながら決めたい');
+      if (q5.includes('free')) supports.push('その場で様子を見ながら合わせてもらえると嬉しい');
 
-      const summary = [
-        `【ポルチオ反応タイプ簡易判定】${labels[mainType]}${scores[subType] > 0 ? `（${labels[subType]}傾向あり）` : ''}`,
+      const summary =[
+        `【わたしのカラダ感覚チェック結果】\n${labels[mainType]}${scores[subType] > 0 ? `\n（隠れ傾向：${labels[subType]}）` : ''}`,
         ``,
-        `・深部刺激の受け取り方: ${descs[mainType]}`,
-        `・詰まりやすい層: ${layerNames[mainLayer]}`,
-        `・共有ポイント: ${supports.length ? supports.join(' / ') : '未記入'}`,
-        memo ? `・補足メモ: ${memo}` : `・補足メモ: なし`
+        `💬 受け取り方のクセ:\n${descs[mainType].replace(/\n/g, '')}`,
+        ``,
+        `🤝 サポートしてほしいこと:\n・${supports.length ? supports.join('\n・') : '特になし'}`,
+        ``,
+        memo ? `📝 補足メモ:\n${memo}` : `📝 補足メモ:\n特になし`
       ].join('\n');
 
       document.getElementById('summaryText').textContent = summary;
